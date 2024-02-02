@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <script type="module">
+
+      
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+        import {  getAuth, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+  
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAn5Rd8BKfiY1XzsFPos6BgNoBqz0TnznQ",
+  authDomain: "mailalerttem.firebaseapp.com",
+  projectId: "mailalerttem",
+  storageBucket: "mailalerttem.appspot.com",
+  messagingSenderId: "1073275971845",
+  appId: "1:1073275971845:web:95386ebd36c01facfc6f6c"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+  
+  
+  </script>
+
+
+</head>
+<body>
+   <form action="/testform.js" method="POST" id="ffm" style="display: flex; align-items: center; justify-content: center; width: 100%; flex-direction: column; gap: 10px; margin-top: 5%;">
+    <input type="email" name="email" id="email">
+    <input type="text" name="subject" id="subject">
+    <input type="text" name="message" id="message">
+    <input type="submit" value="Submit">
+   </form>
+
+   <script>
+     const FM = document.getElementById("ffm");
+        let email = document.getElementById('email');
+        let subject = document.getElementById('subject');
+        let message = document.getElementById('message');
+
+
+     FM.addEventListener("submit", async (e)=>{
+        e.preventDefault();
+
+        let formData = {
+            email: email.value,
+            subject: subject.value,
+            message: message.value
+        }
+        const options = {
+            method: 'POST',
+            
+            headers: {
+                'Content-type' : 'application/json'
+            },
+            body: JSON.stringify(formData),
+        }
+
+      const respones = await  fetch('/theform.html', options);
+
+       respones.json().then((dd)=>{
+                   email.value = "";
+            subject.value = "";
+           message.value  = "";
+           alert("message receieved successfully!!!")
+           console.log(dd);
+      })
+  
+     });
+   </script>
+</body>
+</html>
