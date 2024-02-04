@@ -7,10 +7,6 @@ const nodemailer = require("nodemailer");
 
 
 
-function sendEmail(){
-   
-}
-
 
 app.use(
     express.urlencoded({
@@ -66,11 +62,7 @@ app.post('/index.html', (request, response)=>{
     response.json({
      message: 'success'
     })
-    // if(response){
-     
-    //     console.log('this is success', response)
-    // }
-  
+    
 })
 })
 

