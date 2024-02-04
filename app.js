@@ -1,7 +1,7 @@
 const express = require('express');
 var bodyParser  = require('body-parser');
 const app = express();
-const port = 4000
+const port = 1000
 const nodemailer = require("nodemailer");
 const path = require('path');
 
